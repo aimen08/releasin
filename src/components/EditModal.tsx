@@ -1,17 +1,27 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { MultiSelect } from "react-multi-select-component";
+import { isTemplateTail } from "typescript";
 import { ProductType } from "../models/ProductType";
 import { useStoreActions } from "../store/hooks";
 
-function Modal(props: any) {
-  const [checked, setChecked] = useState<ProductType | undefined>(undefined);
+function EditModal(props: any) {
+  const [checked, setChecked] = useState<ProductType | undefined>(
+    props.item.product_type
+  );
   const [showDropdown, setShowDropdown] = useState(false);
   const inputNameRef = useRef() as React.MutableRefObject<HTMLInputElement>;
 
-  const postProduct = useStoreActions(
-    (actions) => actions.products.postProduct
+  const editProduct = useStoreActions(
+    (actions) => actions.products.editProduct
   );
-  const [selected, setSelected] = useState([]);
+  const [selected, setSelected] = useState(
+    props.item.assigned_attributes.map((value: any) => {
+      return {
+        value: value.attribute_value._id,
+        label: value.attribute_value.name,
+      };
+    })
+  );
   const options =
     checked?.attributes.map((item) => {
       return {
@@ -21,7 +31,8 @@ function Modal(props: any) {
     }) || [];
 
   const saveButton = () => {
-    postProduct({
+    editProduct({
+      _id: props.item._id,
       name: inputNameRef.current.value,
       created_at: new Date(),
       product_type: checked,
@@ -32,6 +43,10 @@ function Modal(props: any) {
     props.setShowModal(false);
   };
 
+  useEffect(() => {
+    inputNameRef.current.value = props.item.name;
+  }, []);
+
   return (
     <>
       <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
@@ -40,7 +55,7 @@ function Modal(props: any) {
           <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
             {/*header*/}
             <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
-              <h3 className="text-3xl font-semibold">Add Product</h3>
+              <h3 className="text-3xl font-semibold">Edit Product</h3>
               <button
                 className="p-1 ml-auto bg-transparent border-0 text-black  float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
                 onClick={() => props.setShowModal(false)}
@@ -67,7 +82,7 @@ function Modal(props: any) {
 
                   <div>
                     <label className="text-gray-700 " htmlFor="emailAddress">
-                      Created At
+                      Edited At
                     </label>
                     <input
                       id="emailAddress"
@@ -175,7 +190,7 @@ function Modal(props: any) {
                 type="button"
                 onClick={saveButton}
               >
-                Save And Add
+                Edit
               </button>
             </div>
           </div>
@@ -186,4 +201,4 @@ function Modal(props: any) {
   );
 }
 
-export default Modal;
+export default EditModal;

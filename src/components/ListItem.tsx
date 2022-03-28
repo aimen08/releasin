@@ -3,6 +3,8 @@ import { Product } from "../models/Product";
 
 interface Props {
   item: Product;
+  setShowEditModal: any;
+  setSelectedEdit: any;
 }
 
 function ListItem(props: Props) {
@@ -183,7 +185,13 @@ function ListItem(props: Props) {
         </button>
       </td>
       <td className="pl-4">
-        <button className="focus:ring-2 focus:ring-offset-2 focus:ring-red-300 text-sm leading-none text-gray-600 py-3 px-5 bg-gray-100 rounded hover:bg-gray-200 focus:outline-none">
+        <button
+          onClick={() => {
+            props.setShowEditModal(true);
+            props.setSelectedEdit(props.item);
+          }}
+          className="focus:ring-2 focus:ring-offset-2 focus:ring-red-300 text-sm leading-none text-gray-600 py-3 px-5 bg-gray-100 rounded hover:bg-gray-200 focus:outline-none"
+        >
           Edit
         </button>
       </td>

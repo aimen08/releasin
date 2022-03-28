@@ -42,4 +42,23 @@ router.post("/addProduct", async (req: Request, res: Response) => {
   res.json({ status: "ok" });
 });
 
+router.post("/editProduct", async (req: Request, res: Response) => {
+  const assigned_attributes = req.body.assigned_attributes.map((item: any) => {
+    return {
+      attribute_value: item.attribute_value._id,
+    };
+  });
+  const result = await AssignedAttributes.insertMany(assigned_attributes);
+
+  await Product.findByIdAndUpdate(req.body._id, {
+    name: req.body.name,
+    created_at: new Date(req.body.created_at),
+    product_type: req.body.product_type._id,
+    assigned_attributes: result.map((item: any) => {
+      return "" + item["_id"];
+    }),
+  });
+  res.json({ status: "ok" });
+});
+
 export default router;

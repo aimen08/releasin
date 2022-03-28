@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import AddButton from "../components/AddButton";
+import EditModal from "../components/EditModal";
 import FilterButton from "../components/FilterButton";
 import Header from "../components/Header";
 import ListItem from "../components/ListItem";
@@ -10,6 +11,8 @@ import { useStoreActions, useStoreState } from "../store/hooks";
 function MainRoute() {
   /* local state */
   const [showModal, setShowModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [selectedEdit, setSelectedEdit] = useState();
 
   const requestProducts = useStoreActions(
     (actions) => actions.products.request
@@ -44,11 +47,29 @@ function MainRoute() {
           <AddButton setShowModal={setShowModal} />
         </div>
         <div className="mt-7 overflow-x-auto">
-          <table className="w-full whitespace-nowrap">
+          <table className="w-full  whitespace-nowrap">
             <tbody>
-              {products.map((item) => {
-                return <ListItem key={item._id} item={item} />;
-              })}
+              {!products ? (
+                <div className="flex justify-center items-center">
+                  <div
+                    className="spinner-border animate-spin inline-block mt-20 w-8 h-8 border-4 rounded-full text-[#4F46E5]"
+                    role="status"
+                  >
+                    <span className="visually-hidden">Loading...</span>
+                  </div>
+                </div>
+              ) : (
+                products.map((item) => {
+                  return (
+                    <ListItem
+                      key={item._id}
+                      item={item}
+                      setShowEditModal={setShowEditModal}
+                      setSelectedEdit={setSelectedEdit}
+                    />
+                  );
+                })
+              )}
               <Space />
             </tbody>
           </table>
@@ -57,6 +78,13 @@ function MainRoute() {
 
       {showModal ? (
         <Modal setShowModal={setShowModal} productTypes={productTypes} />
+      ) : null}
+      {showEditModal ? (
+        <EditModal
+          setShowModal={setShowEditModal}
+          productTypes={productTypes}
+          item={selectedEdit}
+        />
       ) : null}
     </div>
   );
