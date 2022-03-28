@@ -1,11 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import AddButton from "../components/AddButton";
 import FilterButton from "../components/FilterButton";
 import Header from "../components/Header";
 import ListItem from "../components/ListItem";
 import Space from "../components/Space";
+import { useStoreActions, useStoreState } from "../store/hooks";
 
 function MainRoute() {
+  const requestProducts = useStoreActions(
+    (actions) => actions.products.request
+  );
+
+  const products = useStoreState((state) => state.products.items);
+
+  useEffect(() => {
+    requestProducts();
+  }, []);
+
   return (
     <div className="sm:px-6 w-full">
       {/* Header */}
@@ -26,7 +37,9 @@ function MainRoute() {
         <div className="mt-7 overflow-x-auto">
           <table className="w-full whitespace-nowrap">
             <tbody>
-              <ListItem />
+              {products.map((item) => {
+                return <ListItem key={item._id} item={item} />;
+              })}
               <Space />
             </tbody>
           </table>
