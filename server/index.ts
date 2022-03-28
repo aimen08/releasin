@@ -2,7 +2,6 @@ import express, { Request, Response } from "express";
 import dotenv from "dotenv";
 import logger from "pino";
 import mongoose from "mongoose";
-import { Attribute, AssignedAttributes, Product, ProductType } from "./models";
 import router from "./routes";
 import cors from "cors";
 
