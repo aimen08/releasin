@@ -93,7 +93,7 @@ function ListItem(props: Props) {
             ></circle>
           </svg>
           <p className="text-sm leading-none text-gray-600 ml-2">
-            {props.item.product_type.name}
+            {props.item.product_type?.name}
           </p>
         </div>
       </td>

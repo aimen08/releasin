@@ -1,20 +1,29 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import AddButton from "../components/AddButton";
 import FilterButton from "../components/FilterButton";
 import Header from "../components/Header";
 import ListItem from "../components/ListItem";
+import Modal from "../components/Modal";
 import Space from "../components/Space";
 import { useStoreActions, useStoreState } from "../store/hooks";
 
 function MainRoute() {
+  /* local state */
+  const [showModal, setShowModal] = useState(false);
+
   const requestProducts = useStoreActions(
     (actions) => actions.products.request
   );
+  const requestProductTypes = useStoreActions(
+    (actions) => actions.productTypes.request
+  );
 
   const products = useStoreState((state) => state.products.items);
+  const productTypes = useStoreState((state) => state.productTypes.types);
 
   useEffect(() => {
     requestProducts();
+    requestProductTypes();
   }, []);
 
   return (
@@ -32,7 +41,7 @@ function MainRoute() {
             <FilterButton />
           </div>
           {/* Add Product Open Modal */}
-          <AddButton />
+          <AddButton setShowModal={setShowModal} />
         </div>
         <div className="mt-7 overflow-x-auto">
           <table className="w-full whitespace-nowrap">
@@ -45,6 +54,10 @@ function MainRoute() {
           </table>
         </div>
       </div>
+
+      {showModal ? (
+        <Modal setShowModal={setShowModal} productTypes={productTypes} />
+      ) : null}
     </div>
   );
 }

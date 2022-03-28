@@ -7,6 +7,7 @@ const API_URL = "http://localhost:1300/api";
 export interface ProductModel {
   items: Product[];
   addProduct: Action<ProductModel, Product[]>;
+  postProduct: Thunk<ProductModel, Product>;
   request: Thunk<ProductModel, string | undefined>;
 }
 
@@ -14,7 +15,19 @@ export const products: ProductModel = {
   items: [],
   addProduct: action((state, payload) => {
     state.items = payload;
-    console.log(debug(state.items[0]));
+  }),
+  postProduct: thunk(async (actions, payload) => {
+    try {
+      await axios.post(`${API_URL}/addProduct`, payload, {
+        headers: {
+          // Overwrite Axios's automatically set Content-Type
+          "Content-Type": "application/json",
+        },
+      });
+      actions.request();
+    } catch (error) {
+      console.log(error);
+    }
   }),
   request: thunk(async (actions, payload) => {
     try {

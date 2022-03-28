@@ -3,26 +3,26 @@ export interface Response {
 }
 
 export interface Product {
-  _id: string;
+  _id?: string;
   name: string;
-  product_type: ProductType;
+  product_type: ProductType | undefined;
   assigned_attributes: AssignedAttribute[];
   created_at: Date;
-  __v: number;
+  __v?: number;
 }
 
 export interface AssignedAttribute {
-  _id: string;
+  _id?: string;
   attribute_value: AttributeValue;
-  __v: number;
+  __v?: number;
 }
 
 export interface AttributeValue {
   _id: string;
-  name: string;
-  boolean: boolean;
-  date: Date;
-  __v: number;
+  name?: string;
+  boolean?: boolean;
+  date?: Date;
+  __v?: number;
 }
 
 export interface ProductType {
