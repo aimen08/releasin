@@ -1,0 +1,48 @@
+// MongoDB Playground
+// To disable this template go to Settings | MongoDB | Use Default Template For Playground.
+// Make sure you are connected to enable completions and to be able to run a playground.
+// Use Ctrl+Space inside a snippet or a string literal to trigger completions.
+
+// Select the database to use.
+use('releasin');
+
+
+
+
+db.releasin_attribute_value.insertMany([
+  { '_id': ObjectId(), 'name': 'red', 'boolean': false, 'data': new Date() }, 
+  { '_id': ObjectId(), 'name': 'big', 'boolean': false, 'data': new Date() }, 
+  { '_id': ObjectId(), 'name': 'small', 'boolean': false, 'data': new Date() }, 
+  { '_id': ObjectId(), 'name': 'white', 'boolean': false, 'data': new Date() },
+  { '_id': ObjectId(), 'name': 'blue', 'boolean': false, 'data': new Date() }, 
+]
+);
+
+
+db.releasin_attribute.insertMany([
+  { '_id': ObjectId(),attribute_value:ObjectId("624202aea181394ae109ead8"), 'name': 'color', 'type': "text", 'created_at': new Date() }, 
+  { '_id': ObjectId(), attribute_value:ObjectId("624202aea181394ae109ead9"),'name': 'size', 'type': "text", 'created_at': new Date() }, 
+  { '_id': ObjectId(),attribute_value:ObjectId("624202aea181394ae109eada"), 'name': 'size', 'type': "text", 'created_at': new Date() }, 
+  { '_id': ObjectId(), attribute_value:ObjectId("624202aea181394ae109eadb"),'name': 'color', 'type': "text", 'created_at': new Date() },
+  { '_id': ObjectId(),attribute_value:ObjectId("624202aea181394ae109eadc"), 'name': 'color', 'type': "text", 'created_at': new Date() }, 
+]
+);
+
+
+
+db.releasin_product_type.insertMany([
+  { '_id': ObjectId(),attributes:[ObjectId("62420564dbd88f93a9b6d30a"),ObjectId("62420564dbd88f93a9b6d30b")], 'name': 'tshirt', 'created_at': new Date() }, 
+
+  { '_id': ObjectId(), attributes:[ObjectId("62420564dbd88f93a9b6d30d")],'name': 'pants', 'created_at': new Date() }, 
+
+  { '_id': ObjectId(),attributes:[ObjectId("62420564dbd88f93a9b6d30e"),ObjectId("62420564dbd88f93a9b6d30c")], 'name': 'shoes', 'created_at': new Date() }, 
+
+  { '_id': ObjectId(), attributes:[ObjectId("62420564dbd88f93a9b6d30e")],'name': 'watches', 'created_at': new Date() },
+]
+);
+
+// db.releasin_.insert(
+//   { 'id': , 'name': 'abc', 'created_at': new Date(), 'attributes': }, 
+// );
+
+
