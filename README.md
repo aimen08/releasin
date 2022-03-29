@@ -35,6 +35,8 @@ the frontend and backend are both hosted on digitalocean.
 
 ![Alt text](/images/3.png?raw=true "Edit Product Modal")
 
+![Alt text](/images/4.png?raw=true "Mongodb")
+
 ## Available Scripts
 
 you need to setup the mongodb with you own database connection string
