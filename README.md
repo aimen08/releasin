@@ -23,6 +23,10 @@ the project is written using typescript (backend and frontend) below i will list
 
 ## Demo
 
+Live Demo : https://releasin-s4obu.ondigitalocean.app/
+
+the frontend and backend are both hosted on digitalocean.
+
 ## Screenshots
 
 ![Alt text](/images/1.png?raw=true "Main Screen")
