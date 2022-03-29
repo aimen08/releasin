@@ -2,7 +2,7 @@ import axios from "axios";
 import { action, thunk, Action, Thunk, debug } from "easy-peasy";
 import { ResponseTypes, ProductType } from "../models/ProductType";
 
-const API_URL = "http://localhost:1300/api/types";
+const API_URL = "https://server-e3coi.ondigitalocean.app/api/types";
 
 export interface ProductTypeModel {
   types: ProductType[];

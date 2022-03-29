@@ -3,6 +3,24 @@
 a small service for product management (frontend and a
 small supporting backend)
 
+## Overview
+
+the project is written using typescript (backend and frontend) below i will list some of the library i used :
+
+### Backend
+
+- Express
+- Moongose (ORM for MongoDb)
+- pino (for loggin)
+
+### Frontend
+
+- Tailwind CSS
+- axios
+- easy peasy (state mangment library built on top of redux)
+- React
+- React Router
+
 ## Demo
 
 ## Screenshots
@@ -54,3 +72,8 @@ this project took me one day to finish there is lot of stuff i need to tackle i 
 - add caching mechanism
 - enhance Security.
 - better design.
+
+## Answer for the third part of the challenge
+
+modeling the data this way can't be big a of problem on small scale,but with time it will become nightmare to manage, one of the reasons is beacause there is lot of redundancy, which will end up on long round trips time (RTT).I would also suggest going for
+horizontal modeling better than vertical modeling especially if it were designed for mobile.
